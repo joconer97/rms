@@ -21,7 +21,6 @@ class AuthController extends Controller
 
         return response()->json([
             'users' => $users,
-            'public' => public_path()
         ],200);
     }
 
@@ -114,7 +113,7 @@ class AuthController extends Controller
             //
         $fileName = str_random().'.'.$extesion;
 
-        $path = 'https://nameless-mountain-54938.herokuapp.com'.'/images/employees/'.$fileName;
+        $path = public_path().'/images/employees/'.$fileName;
 
         file_put_contents($path,$decoded);
         $user = new User();
@@ -135,7 +134,7 @@ class AuthController extends Controller
 
         $user->schedule = $schedule;
 
-        $directory =  'https://nameless-mountain-54938.herokuapp.com' . '/images/label_images/' . $user->id . '-' . $user->firstname;
+        $directory =  public_path() . '/images/label_images/' . $user->id . '-' . $user->firstname;
 
             File::makeDirectory($directory,0777,true);
 
