@@ -80,7 +80,7 @@ export default {
         loadImages(){
 
             for(let i = 1; i <= 4; i++){
-                var path = 'http://vuespatest.test/images/label_images/' + this.employee.id + '-' + this.employee.firstname + '/' + i + '.jpg'
+                var path = 'images/label_images/' + this.employee.id + '-' + this.employee.firstname + '/' + i + '.jpg'
                 console.log(path)
                 this.images.push(path)
             }
