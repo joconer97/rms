@@ -51,7 +51,7 @@
             <h1>Facial Recognition Model</h1>
             <b-list-group horizontal>
                 <b-list-group-item v-for="(image,index) in images" :key="index"> 
-                    <img :src="image" height="120" width="120" alt="">
+                    <img :src="`/images/label_images/`+employee.id+'-'+employee.firstname+'/'+(index+1)+'.jpg'" height="180" width="180" alt="">
                 </b-list-group-item>
             </b-list-group>
         </div>
@@ -81,7 +81,7 @@ export default {
         loadImages(){
 
             for(let i = 1; i <= 4; i++){
-                var path = 'images/label_images/' + this.employee.id + '-' + this.employee.firstname + '/' + i + '.jpg'
+                var path = `images/label_images/${this.employee.id}-${this.employee.firstname}/${i}.jpg`
                 console.log(path)
                 this.images.push(path)
             }
