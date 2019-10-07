@@ -1,5 +1,6 @@
 <template>
     <div style="margin-bottom : 10px">
+        <h1>hello</h1>
         <div class="row" style="background:red;margin:0 auto">
             <input type="text" placeholder="Employee #" v-model="employeeID">
             <button class="btn btn-primary" @click="switchCamera">Enter</button>

@@ -134,7 +134,7 @@ class AuthController extends Controller
 
         $user->schedule = $schedule;
 
-        $directory =  public_path() . '/images/models/' . $user->id . '-' . $user->firstname;
+        $directory =  public_path() . '/images/label_images/' . $user->id . '-' . $user->firstname;
 
             File::makeDirectory($directory,0777,true);
 
@@ -166,6 +166,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'employee' => $user,
+                'directory' => $directory
             ],200);
     }
 /**

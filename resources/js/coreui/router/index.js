@@ -51,7 +51,10 @@ export default new Router({
     {
       path : '/attendance',
       name : 'Attendance',
-      component : AttendanceRecord
+      component : AttendanceRecord,
+      meta : {
+        requiresAuth : true
+      }
     },
     {
       path     : '/user/dashboard',
