@@ -114,7 +114,7 @@ class AuthController extends Controller
             //
         $fileName = str_random().'.'.$extesion;
 
-        $path = public_path().'/images/employees/'.$fileName;
+        $path = 'https://nameless-mountain-54938.herokuapp.com'.'/images/employees/'.$fileName;
 
         file_put_contents($path,$decoded);
         $user = new User();
@@ -135,7 +135,7 @@ class AuthController extends Controller
 
         $user->schedule = $schedule;
 
-        $directory =  public_path() . '/images/label_images/' . $user->id . '-' . $user->firstname;
+        $directory =  'https://nameless-mountain-54938.herokuapp.com' . '/images/label_images/' . $user->id . '-' . $user->firstname;
 
             File::makeDirectory($directory,0777,true);
 
