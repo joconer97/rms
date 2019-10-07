@@ -18,8 +18,8 @@ export default {
 </script>
 <style>
 @media only screen and (max-width: 600px) {
- #navbar{
-   margin-bottom : 0px !important;
- }
+  #navbar{
+      margin-bottom : 0px !important;
+  }
 }
 </style>
