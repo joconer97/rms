@@ -76,6 +76,7 @@ export default {
     getEmployee(context){
       axios.get('/api/users')
         .then(response => {
+          console.log(response)
           context.commit('updateEmployee', response.data.users)
         })
     },

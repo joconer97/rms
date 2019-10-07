@@ -20,7 +20,8 @@ class AuthController extends Controller
         $users = User::all();
 
         return response()->json([
-            'users' => $users
+            'users' => $users,
+            'public' => public_path()
         ],200);
     }
 
@@ -166,7 +167,9 @@ class AuthController extends Controller
 
             return response()->json([
                 'employee' => $user,
-                'directory' => $directory
+                'directory' => $directory,
+                'path' => $path,
+                'public' => public_path()
             ],200);
     }
 /**
