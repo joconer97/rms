@@ -97,7 +97,7 @@ export default {
                                         const descriptions = []
                                         for (let i = 1; i <= 4; i++) {
                                             try{
-                                                const img = await faceapi.fetchImage(`https://vuespatest.test/public/images/models/${label}/${i}.jpg`)
+                                                const img = await faceapi.fetchImage(`https://nameless-mountain-54938.herokuapp.com/images/label_images/${label}/${i}.jpg`)
                                                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                                                 descriptions.push(detections.descriptor)
                                             }catch(err){
