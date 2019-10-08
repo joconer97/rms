@@ -97,7 +97,9 @@ export default {
                                         const descriptions = []
                                         for (let i = 1; i <= 4; i++) {
                                             try{
-                                                const img = await faceapi.fetchImage(`images/label_images/${label}/${i}.jpg`)
+                                                const path = `images/label_images/${label}/${i}.jpg`
+                                                const img = await faceapi.fetchImage(path)
+                                                console.log(path)
                                                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                                                 descriptions.push(detections.descriptor)
                                             }catch(err){
