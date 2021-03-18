@@ -1,80 +1,126 @@
 <template>
-<div class="container">
-    <h1>hello</h1>
-    <div v-if="employees.length">
-        <button class="btn btn-primary" @click="editMode">Edit</button>
-        <template  v-if="edit">
-            <div class="row">
-                <img :src="`/images/employees/`+employee.profile_pic" height="180" width="180" alt="">
-                <ul class="list-group">
-                    <li class="list-group-item"><h4>{{employee.firstname + ' '+ employee.middleinitial + ' ' + employee.lastname}}</h4></li>
-                    <li class="list-group-item"><h4>19</h4></li>
-                    <li class="list-group-item"><h4>Manager</h4></li>
-                </ul> 
+<div>
+    <h1>Viewing Employee</h1>
+    <img :src="link" alt="" v-if="link.length" height="280" width="280">
+	<img :src="`/images/employees/`+employee.profile_pic" height="280" width="280" alt="" v-else>
+    <input style="display:block" type="file" class="btn btn-primary" @change="imageChange" multiple="multiple" width="250" accept=".jpg">
+    <form @submit.prevent="updateEmployee">
+        <div class="form-row">
+            <div class="form-group col-md-5">
+            <label for="inputFirstname">Firstname</label>
+            <input type="text" class="form-control" id="inputFirstname" placeholder="Firstname" v-model="employee.firstname">
             </div>
-        </template>
-        <template v-else>
-            <h1>Editing Mode</h1>
-            <div class="row">
-                <img :src="`/images/employees/`+employee.profile_pic" height="180" width="180" alt="">
-                <ul class="list-group">
-                    <div class="form-row">
-                        <div class="form-group col-md">
-                        <input type="text" class="form-control" id="inputFirstname" placeholder="Firstname" v-model="employee.firstname">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md">
-                        <input type="text" class="form-control" id="inputMiddleinitial" placeholder="Middle Initial" v-model="employee.middleinitial">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md">
-                        <input type="text" class="form-control" id="inputLastname" placeholder="Lastname" v-model="employee.lastname">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <select id="inputState" class="form-control" v-model="employee.position">
-                            <option>Admin</option>
-                            <option>Manager</option>
-                            <option>Housewife</option>
-                            <option>Maintenance</option>
-                            <option>Chef</option>
-                        </select>
-                    </div>
-                </ul> 
+            <div class="form-group col-md-2">
+            <label for="inputMiddleinitial">Middle Initial</label>
+            <input type="text" class="form-control" id="inputMiddleinitial" placeholder="Middle Initial" v-model="employee.middleinitial">
             </div>
-        </template>
-        <div>
-            <h1>Facial Recognition Model</h1>
-            <b-list-group horizontal>
-                <b-list-group-item v-for="(image,index) in images" :key="index"> 
-                    <img :src="`/images/label_images/`+employee.id+'-'+employee.firstname+'/'+(index+1)+'.jpg'" height="180" width="180" alt="">
-                </b-list-group-item>
-            </b-list-group>
+            <div class="form-group col-md-5">
+            <label for="inputLastname">Lastname</label>
+            <input type="text" class="form-control" id="inputLastname" placeholder="Lastname" v-model="employee.lastname">
+            </div>
         </div>
-    </div>
-    <button class="btn btn-primary" @click="update">Save</button>
-</div>
 
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="employee.email">
+            </div>
+            <div class="form-group col-md-6">
+            <label for="inputPassword4">Password</label>
+            <input type="password" class="form-control" id="inputPassword4" placeholder="Password" v-model="employee.password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" v-model="employee.address">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="inputCity">Landmark</label>
+            <input type="text" class="form-control" id="inputCity" v-model="employee.landmark">
+            </div>
+            <div class="form-group col-md-4">
+            <label for="inputState">City</label>
+            <select id="inputState" class="form-control" v-model="employee.city">
+                <option value="" disabled selected>Select your city</option>
+                <option value="city.name" v-for="(city, index) in cities" :key="index">{{city.name}}</option>
+            </select>
+            </div>
+            <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input type="text" class="form-control" id="inputZip" v-model="employee.zip">
+            </div>
+        </div>
+        <div class="form-row">
+            <select id="inputPosition" class="form-control" v-model="employee.position">
+                <option>Admin</option>
+                <option>Manager</option>
+                <option>Housewife</option>
+                <option>Maintenance</option>
+                <option>Chef</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom : 30px">
+            <h1>Working Schedule</h1>
+            <div class="form-group col-md-2">
+                <label for="inputStart">Start Time</label>
+                <input type="time" value="08:00" v-model="employee.start_time">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="inputStart">End Time</label>
+                <input type="time" value="08:00" v-model="employee.end_time">
+            </div>
+
+            <!-- <div class="form-group col-md-2">
+                <ul>
+                    <li><label><input name="Checkbox1" type="checkbox" value="Sunday">Sunday</label></li>
+                    <li><label for=""><input type="checkbox"  id="" value="Monday">Monday</label></li>
+                    <li><label><input name="Checkbox1" type="checkbox" value="Tuesday">Tuesday</label></li>
+                    <li><label for=""><input type="checkbox"  id="" value="Wednesday">Wednesday</label></li>
+                    <li><label><input name="Checkbox1" type="checkbox" value="Thursday">Thursday</label></li>
+                    <li><label for=""><input type="checkbox"  id="" value="Friday">Friday</label></li>
+                    <li><label><input name="Checkbox1" type="checkbox" value="Saturday">Saturay</label></li>
+                </ul>
+                
+            </div> -->
+            
+        </div>
+
+        <div style="margin-bottom : 30px">
+            <h1>Facial Recognition Model</h1>
+            <div class="active-purple-3 active-purple-4 mb-4" style="height : 300px">
+                <img v-for="(image,index) in images" :key="index" :src="`/images/label_images/`+employee.id +'-'+employee.firstname+'/'+(index+1) +'.jpg'" height="280" width="280" alt="" >
+            </div>
+            <input type="file" class="form-control btn btn-primary" @change="uploadFacialModel" multiple="multiple" accept=".jpg"> 
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+
+
+</div>
 </template>
 <script>
+import {cities} from '../../helpers/cities.js'
 export default {
     data(){
         return{
             edit : true,
-            id : 0,
             employee : '',
             image : '',
             images : [],
-            day : ''
+            day : '',
+            link : ''
         }
     },
     computed : {
         employees(){
             return this.$store.getters.employees
+        },
+        cities(){
+            return cities()
         }
     },
     methods : {
@@ -82,10 +128,34 @@ export default {
 
             for(let i = 1; i <= 4; i++){
                 var path = `images/label_images/${this.employee.id}-${this.employee.firstname}/${i}.jpg`
-                console.log(path)
                 this.images.push(path)
             }
+            console.log(this.images)
             
+        },
+        imageChange(e){
+            var fileReader = new FileReader();
+
+            fileReader.readAsDataURL(e.target.files[0]);
+
+            fileReader.onload = (e) =>{
+                this.link = e.target.result
+                this.employee.profile_pic = e.target.result
+                }
+        },
+        uploadFacialModel(e){
+            var files = e.target.files
+
+            Array.from(files).forEach(file => {
+                    var fileReader = new FileReader()
+
+                    fileReader.readAsDataURL(file)
+
+                    fileReader.onload = (e) =>{
+                        this.employee.images.push(e.target.result)
+                        }
+                    });
+
         },
         editMode(){
             if(this.edit){
@@ -93,19 +163,20 @@ export default {
             }else{
                 this.edit = true
             }
-            console.log(this.edit)
         },
-        update(){
+        updateEmployee(){
             axios.post('/api/auth/update',this.employee).then(response => {
-                this.$router.push('/employee')
+                window.location.reload()
             })
+        },
+        getSchedule(){
+            
         }
     },
     created(){
-        if(!this.employees.length || this.id != 0) 
+        if(!this.employees.length) 
             this.$router.push('/employee')
 
-       
         this.employee = this.employees.find(employee => employee.id == this.$route.params.id)
         this.loadImages()
 

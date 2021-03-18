@@ -2,7 +2,6 @@
 import { Bar } from 'vue-chartjs'
 
 export default {
-  name : 'BarExample',
   extends: Bar,
   mounted () {
     // Overwriting base render method with actual data.
@@ -23,7 +22,7 @@ export default {
       ],
       datasets: [
         {
-          label          : 'Tourist Check-in',
+          label          : 'GitHub Commits',
           backgroundColor: '#f87979',
           data           : [
             40,
@@ -33,7 +32,7 @@ export default {
             10,
             40,
             39,
-            150,
+            80,
             40,
             20,
             12,

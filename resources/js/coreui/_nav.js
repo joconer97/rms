@@ -29,28 +29,6 @@ export default {
       icon: 'icon-book-open',
     },
     {
-      name    : 'Room Monitoring',
-      url     : '/icons',
-      icon    : 'icon-star',
-      children: [
-        {
-          name: 'Room List',
-          url : '/room/',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Room Create',
-          url : '/room/create',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Room Update',
-          url : '/room/update/0',
-          icon: 'icon-puzzle',
-        },
-      ]
-    },
-    {
       title  : true,
       name   : 'Others',
       class  : '',
@@ -60,22 +38,7 @@ export default {
       },
     },
     {
-      name    : 'Inventory',
-      url     : '/inventory',
-      icon    : 'icon-puzzle',
-    },
-    {
-      name    : 'Attendance',
-      url     : '/attendance',
-      icon    : 'icon-puzzle',
-    },
-    {
-      name    : 'Maintenance',
-      url     : '/buttons',
-      icon    : 'icon-cursor',
-    },
-    {
-      name    : 'Employee',
+      name    : 'Employee Module',
       url     : '/employee',
       icon    : 'icon-cursor',
       children: [
@@ -89,12 +52,39 @@ export default {
           url : '/employee/create',
           icon: 'icon-puzzle',
         },
+      ]
+    },
+    {
+      name    : 'Room Module',
+      url     : '/icons',
+      icon    : 'icon-star',
+      children: [
         {
-          name: 'Employee Update',
-          url : '/employee/update/0',
+          name: 'Room List',
+          url : '/room/',
+          icon: 'icon-puzzle',
+        },
+        {
+          name: 'Room Create',
+          url : '/room/create',
           icon: 'icon-puzzle',
         },
       ]
+    },
+    {
+      name    : 'Inventory Module',
+      url     : '/inventory',
+      icon    : 'icon-puzzle',
+    },
+    {
+      name    : 'Attendance',
+      url     : '/attendance',
+      icon    : 'icon-puzzle',
+    },
+    {
+      name    : 'Maintenance',
+      url     : '/buttons',
+      icon    : 'icon-cursor',
     },
     {
       name: 'Settings',

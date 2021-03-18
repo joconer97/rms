@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 v-if="!employees.length">No records</h1>
-        <table v-else class="table table-striped table-dark">
+        <table v-else class="table table-hover" style="background : rgb(153, 51, 51) !important;color:white ">
             <thead>
                 <th>Employee ID</th>
                 <th>Firstname</th>
@@ -19,7 +19,7 @@
                     <td>{{employee.position}}</td>
                     <td>
                         <b-list-group horizontal>
-                            <b-list-group-item><button type="button" class="btn btn-primary" @click="update(employee.id)">Update</button></b-list-group-item>
+                            <b-list-group-item><button type="button" class="btn btn-primary" @click="update(employee.id)">View</button></b-list-group-item>
                             <b-list-group-item><button type="button" class="btn btn-warning">Deactivate</button></b-list-group-item>
                             <b-list-group-item><button type="button" class="btn btn-danger" @click="showMsgBoxTwo(employee.firstname,employee.lastname,employee.id)">Delete</button></b-list-group-item>
                         </b-list-group>
@@ -40,7 +40,7 @@ export default {
     name    : 'EmployeeList',
     computed: {
         employees () {
-        return this.$store.getters.employees
+            return this.$store.getters.employees
         },
     },
     mounted () {
@@ -97,3 +97,12 @@ export default {
             
 }
 </script>
+
+<style>
+.list-group-item {
+background-color: transparent;
+border-radius: 0;
+color: #fff;
+border : none
+}
+</style>

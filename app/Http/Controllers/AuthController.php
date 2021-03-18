@@ -28,35 +28,72 @@ class AuthController extends Controller
     {
         $user = User::find($id);
 
-        $oldDirectory =  public_path() . '/public/images/models/' . $user->id . '-' . $user->firstname;
+        $oldDirectory =  public_path() . '/images/label_images/' . $user->id . '-' . $user->firstname;
+        $this->deleteFiles($oldDirectory);
 
         $user->delete();
-        array_map('unlink', glob("$oldDirectory/*.*"));
-        if(rmdir($oldDirectory)){
-            echo "sucessfully deleted";
-        }
-        else{
-            echo "failed to delete";
-        }
 
         return response()->json([
             'user' => $user
         ],200);
     }
 
+    private function uploadImage($image){
+        $exploded = explode(',',$image);
+
+        $decoded = base64_decode($exploded[1]);
+
+        if(str_contains($exploded[0],'jpeg'))
+        {
+            $extesion = 'jpg';
+        }
+        else
+        {
+            $extesion = 'png';
+        }
+            //
+        $fileName = str_random().'.'.$extesion;
+
+        $path = public_path().'/images/employees/'.$fileName;
+
+        file_put_contents($path,$decoded);
+
+        return $fileName;
+    }
+    private function deleteFiles($directory)
+    {
+        
+        array_map('unlink', glob("$directory/*.*"));
+
+        if(rmdir($directory)){
+            echo "sucessfully deleted";
+        }
+        else{
+            echo "failed to delete";
+        }
+    }
+
     public function update(Request $request)
     {
         $user = User::find($request->id);
-
-        $oldDirectory =  public_path() . '/public/images/models/' . $user->id . '-' . $user->firstname;
-
+        $path =  public_path() . '/images/employees/' . $user->profile_pic;
+        unlink($path);
+        $fileName = $this->uploadImage($request->profile_pic);
+        $oldDirectory =  public_path() . '/images/label_images/' . $user->id . '-' . $user->firstname;
         $user->firstname = $request->firstname;
         $user->middleinitial = $request->middleinitial;
         $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->address = $request->address;
+        $user->city = $request->city;
+        $user->landmark = $request->landmark;
+        $user->zip = $request->zip;
+        $user->profile_pic = $fileName;
         $user->position = $request->position;
         $user->save();
 
-        $directory =  public_path() . '/public/images/models/' . $user->id . '-' . $user->firstname;
+        $directory =  public_path() . '/images/label_images/' . $user->id . '-' . $user->firstname;
         
         if(file_exists($directory)){
             echo "Error While Renaming $directory" ;
@@ -68,7 +105,6 @@ class AuthController extends Controller
                 echo "Failed to rename";
             }
         }
-
         return response()->json([
             'user' => $user
         ],200);
@@ -98,6 +134,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        
         $exploded = explode(',',$request->profile_pic);
 
         $decoded = base64_decode($exploded[1]);

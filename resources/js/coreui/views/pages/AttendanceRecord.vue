@@ -1,6 +1,5 @@
 <template>
     <div style="margin-bottom : 10px">
-        <h1>hellos3</h1>
         <div class="row" style="background:red;margin:0 auto">
             <input type="text" placeholder="Employee #" v-model="employeeID">
             <button class="btn btn-primary" @click="switchCamera">Enter</button>
@@ -28,10 +27,20 @@
                 </table>
             </div>
         </div>
+
+        <div class="row">
+            <table>
+                <tr v-for="employee in employees" :key="employee.id">
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.firstname}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </template>
 <script>
 import AttendanceCamera from './AttendanceCamera'
+import * as faceapi from "../../../face-api.min.js";
 import {bus} from '../../main.js'
 export default {
     data(){
@@ -60,6 +69,31 @@ export default {
 
             return this.employees[index]
         },
+        loadLabeledImages() {
+            var labels = []
+            this.employees.forEach(employee => {
+                labels.push(employee.id + '-' + employee.firstname)
+            })
+    
+
+            return Promise.all(
+                labels.map(async label => {
+                    const descriptions = []
+                    for (let i = 1; i <= 4; i++) {
+                        try{
+                            const img = await faceapi.fetchImage(`https://vuespatest.test/images/label_images/${label}/${i}.jpg`)
+                            const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+                            descriptions.push(detections.descriptor)
+                            }catch(err){
+                                console.log(err)
+                            }
+                                    
+                    }
+
+                    return new faceapi.LabeledFaceDescriptors(label, descriptions)
+                })
+            )
+        }
     },
     computed : {
         employees () {
@@ -74,6 +108,9 @@ export default {
         
     },
     created(){
+        setTimeout(() => {
+            this.loadLabeledImages()
+        },10000)
         bus.$on('testing', (data) => {
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

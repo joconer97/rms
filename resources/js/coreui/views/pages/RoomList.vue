@@ -1,7 +1,7 @@
 <template>
 <div>
     <h1>Room Lists</h1>
-    <table class="table table-striped table-dark">
+    <table class="table table-hover" style="rgb(153, 51, 51) !important">
         <thead>
             <th>Room name</th>
             <th>Room Details</th>

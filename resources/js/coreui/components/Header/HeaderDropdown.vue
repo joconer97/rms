@@ -4,11 +4,19 @@
     no-caret
   >
     <template slot="button-content">
-      <img
-        :src="`/images/employees/`+user.profile_pic" 
-        class="img-avatar"
-        alt="admin@bootstrapmaster.com"
-      >
+      <template v-if="user.profile_pic.length">
+          <img
+          :src="`/images/employees/`+user.profile_pic" 
+          class="img-avatar"
+          alt="admin@bootstrapmaster.com">
+      </template>
+      <template v-else>
+        <img
+          :src="`/images/1.jpg`"
+          class="img-avatar"
+          alt="admin@bootstrapmaster.com">
+      </template>
+
     </template>
     <b-dropdown-header
       tag="div"
@@ -65,9 +73,6 @@
       </b-badge>
     </b-dropdown-item>
     <b-dropdown-divider />
-    <b-dropdown-item>
-      <i class="fa fa-shield" /> Lock Account
-    </b-dropdown-item>
     <b-dropdown-item @click="logout">
       <i class="fa fa-lock"/> Logout
     </b-dropdown-item>

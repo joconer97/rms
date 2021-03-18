@@ -281,104 +281,6 @@
       </div>
     </b-card>
     <b-row>
-      <b-col
-        sm="6"
-        lg="3"
-      >
-        <div class="social-box facebook">
-          <i class="fa fa-facebook" />
-          <div class="chart-wrapper">
-            <social-box-chart-example
-              :data="[65, 59, 84, 84, 51, 55, 40]"
-              height="90"
-            />
-          </div>
-          <ul>
-            <li>
-              <strong>89k</strong>
-              <span>friends</span>
-            </li>
-            <li>
-              <strong>459</strong>
-              <span>feeds</span>
-            </li>
-          </ul>
-        </div><!--/.social-box-->
-      </b-col>
-      <b-col
-        sm="6"
-        lg="3"
-      >
-        <div class="social-box twitter">
-          <i class="fa fa-twitter" />
-          <div class="chart-wrapper">
-            <social-box-chart-example
-              :data="[1, 13, 9, 17, 34, 41, 38]"
-              height="90"
-            />
-          </div>
-          <ul>
-            <li>
-              <strong>973k</strong>
-              <span>followers</span>
-            </li>
-            <li>
-              <strong>1.792</strong>
-              <span>tweets</span>
-            </li>
-          </ul>
-        </div><!--/.social-box-->
-      </b-col>
-      <b-col
-        sm="6"
-        lg="3"
-      >
-        <div class="social-box linkedin">
-          <i class="fa fa-linkedin" />
-          <div class="chart-wrapper">
-            <social-box-chart-example
-              :data="[78, 81, 80, 45, 34, 12, 40]"
-              height="90"
-            />
-          </div>
-          <ul>
-            <li>
-              <strong>500+</strong>
-              <span>contacts</span>
-            </li>
-            <li>
-              <strong>292</strong>
-              <span>feeds</span>
-            </li>
-          </ul>
-        </div><!--/.social-box-->
-      </b-col>
-      <b-col
-        sm="6"
-        lg="3"
-      >
-        <div class="social-box google-plus">
-          <i class="fa fa-google-plus" />
-          <div class="chart-wrapper">
-            <social-box-chart-example
-              :data="[35, 23, 56, 22, 97, 23, 64]"
-              height="90"
-            />
-          </div>
-          <ul>
-            <li>
-              <strong>894</strong>
-              <span>followers</span>
-            </li>
-            <li>
-              <strong>92</strong>
-              <span>circles</span>
-            </li>
-          </ul>
-        </div><!--/.social-box-->
-      </b-col>
-    </b-row>
-    <b-row>
       <b-col md="12">
         <b-card header="Traffic &amp; Sales">
           <b-row>
@@ -953,99 +855,27 @@
             </b-col>
           </b-row>
           <br>
-          <b-table
-            :items="tableItems"
-            :fields="tableFields"
-            class="mb-0 table-outline"
-            responsive="sm"
-            hover
-            head-variant="light"
-          >
-            <div slot="HEAD_avatar">
-              <i class="icon-people" />
-            </div>
-
-            <div
-              slot="avatar"
-              slot-scope="item"
-              class="avatar"
-            >
-              <img
-                :src="item.value.url"
-                class="img-avatar"
-                alt=""
-              >
-              <span
-                :class="{ 'bg-success': item.value.status == 'success', 'bg-warning': item.value.status == 'warning', 'bg-danger': item.value.status == 'danger', 'bg-secondary': item.value.status == '' }"
-                class="avatar-status"
-              />
-            </div>
-            <div
-              slot="user"
-              slot-scope="item"
-            >
-              <div>{{ item.value.name }}</div>
-              <div class="small text-muted">
-                <span>
-                  <template v-if="item.value.new">
-                    New
-                  </template>
-                  <template v-else>
-                    Recurring
-                  </template>
-                </span> | Registered: {{ item.value.registered }}
-              </div>
-            </div>
-            <i
-              :id="item.value.flag"
-              slot="country"
-              slot-scope="item"
-              :class="flag(item.value.flag)"
-              :title="item.value.flag"
-              class="h4 mb-0"
-            />
-            <i
-              id="pw"
-              class="flag-icon flag-icon-pw h1"
-              title="pw"
-            />
-            <div
-              slot="usage"
-              slot-scope="item"
-            >
-              <div class="clearfix">
-                <div class="float-left">
-                  <strong>{{ item.value.value }}%</strong>
-                </div>
-                <div class="float-right">
-                  <small class="text-muted">
-                    {{ item.value.period }}
-                  </small>
-                </div>
-              </div>
-              <b-progress
-                v-model="item.value.value"
-                :variant="variant(item.value.value)"
-                height="{}"
-                class="progress-xs"
-              />
-            </div>
-            <i
-              slot="payment"
-              slot-scope="item"
-              :class="item.value.icon"
-              style="font-size:24px"
-            />
-            <div
-              slot="activity"
-              slot-scope="item"
-            >
-              <div class="small text-muted">
-                Last login
-              </div>
-              <strong>{{ item.value }}</strong>
-            </div>
-          </b-table>
+          <table class="table table-border">
+                <thead>
+                  <th><i class="icon-people"></i></th>
+                  <th>User</th>
+                  <th>Productivity</th>
+                  <th>Activity</th>
+                </thead>
+                <tbody>
+                  <tr v-for="(item,index) in tableItems" :key="index">
+                    <td>
+                      <div class="avatar">
+                        <img :src="item.avatar.url" alt="" class="img-avatar"> 
+                        <span class="avatar-status bg-success"></span>
+                        </div>
+                    </td>
+                    <td>{{item.user.name}}</td>
+                    <td><b-progress :value="item.usage.value" variant="success"></b-progress></td>
+                    <td>{{item.activity}}</td>
+                  </tr>
+                </tbody>
+          </table>
         </b-card>
       </b-col>
     </b-row>
@@ -1061,7 +891,6 @@ import MainChartExample from './dashboard/MainChartExample'
 import SocialBoxChartExample from './dashboard/SocialBoxChartExample'
 import CalloutChartExample from './dashboard/CalloutChartExample'
 import { Callout } from '@/components'
-
 export default {
   name      : 'Dashboard',
   components: {
@@ -1139,7 +968,7 @@ export default {
           activity: 'Last week',
         },
       ],
-      tableFields: {
+      fields: {
         avatar: {
           label: '<i class="icon-people"></i>',
           class: 'text-center',
@@ -1169,7 +998,6 @@ export default {
         $variant = 'warning'
       else if (value > 75 && value <= 100)
         $variant = 'danger'
-
       return $variant
     },
     flag (value) {

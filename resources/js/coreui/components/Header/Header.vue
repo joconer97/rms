@@ -18,17 +18,7 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <b-navbar-nav class="d-md-down-none">
-      <b-nav-item class="px-3">
-        Dashboard
-      </b-nav-item>
-      <b-nav-item class="px-3">
-        Users
-      </b-nav-item>
-      <b-nav-item class="px-3">
-        Settings
-      </b-nav-item>
-    </b-navbar-nav>
+
     <b-navbar-nav class="ml-auto">
       <b-nav-item class="d-md-down-none">
         <i class="icon-bell" />
@@ -38,12 +28,6 @@
         >
           5
         </b-badge>
-      </b-nav-item>
-      <b-nav-item class="d-md-down-none">
-        <i class="icon-list" />
-      </b-nav-item>
-      <b-nav-item class="d-md-down-none">
-        <i class="icon-location-pin" />
       </b-nav-item>
       <header-dropdown />
     </b-navbar-nav>
